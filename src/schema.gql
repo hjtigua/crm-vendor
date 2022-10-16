@@ -1,0 +1,30 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Course {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type Query {
+  courses: [Course!]!
+  obtenerCurso(id: Int!): Course!
+}
+
+type Mutation {
+  createCourse(createCourseInput: CreateCourseInput!): Course!
+  updateCourse(updateCourseInput: UpdateCourseInput!): Course!
+  removeCourse(id: Int!): Course!
+}
+
+input CreateCourseInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateCourseInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
