@@ -22,23 +22,8 @@ export class UserResolver {
     return this.userService.authenticateUser(authenticateUserInput);
   }
 
-  @Query(() => [User], { name: 'user' })
-  findAll() {
-    return this.userService.findAll();
-  }
-
-  @Query(() => User, { name: 'user' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.userService.findOne(id);
-  }
-
-  @Mutation(() => User)
-  updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
-    return this.userService.update(updateUserInput.id, updateUserInput);
-  }
-
-  @Mutation(() => User)
-  removeUser(@Args('id', { type: () => Int }) id: number) {
-    return this.userService.remove(id);
+  @Query(() => User, { name: 'userLogin' })
+  userLogin(@Args('token', { type: () => String }) token: string) {
+    return this.userService.userLogin(token);
   }
 }

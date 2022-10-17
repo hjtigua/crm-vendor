@@ -7,11 +7,13 @@ import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
 import { AuthenticateUserInput } from './dto/authenticate-user.input';
 import { ConfigService } from '@nestjs/config';
-import { sign } from 'jsonwebtoken';
+import { JwtPayload, sign, verify } from 'jsonwebtoken';
 import { UserToken } from './dto/user-token.type';
 
 @Injectable()
 export class UserService {
+  private jwtSecret: string = this.configService.getOrThrow('JWT_SECRET');
+
   constructor(
     @InjectModel(User.name)
     private readonly userModel: Model<User>,
@@ -56,25 +58,13 @@ export class UserService {
     }
   }
 
-  findAll() {
-    return `This action returns all user`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
-  }
-
-  update(id: number, updateUserInput: UpdateUserInput) {
-    return `This action updates a #${id} user`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} user`;
-  }
-
   private createUserToken(user: User): string {
     const { id, email, name } = user;
-    const secret: string = this.configService.getOrThrow('JWT_SECRET');
-    return sign({ id, email, name }, secret, { expiresIn: '1d' });
+    return sign({ id, email, name }, this.jwtSecret, { expiresIn: '1d' });
+  }
+
+  userLogin(token: string): string | JwtPayload {
+    const userPayload = verify(token, this.jwtSecret);
+    return userPayload;
   }
 }

@@ -27,10 +27,29 @@ type UserToken {
   token: String!
 }
 
+type Product {
+  """Product Id"""
+  id: String!
+
+  """Product Name"""
+  name: String!
+
+  """Product's Stock"""
+  stock: Float!
+
+  """Product's Price"""
+  price: Float!
+
+  """Created date of the record"""
+  createdAt: String!
+}
+
 type Query {
   courses: [Course!]!
   obtenerCurso(id: Int!): Course!
-  user(id: Int!): User!
+  userLogin(token: String!): User!
+  products: [Product!]!
+  product(id: ID!): Product!
 }
 
 type Mutation {
@@ -39,8 +58,9 @@ type Mutation {
   removeCourse(id: Int!): Course!
   createUser(createUserInput: CreateUserInput!): User!
   authenticateUser(input: AuthenticateUserInput!): UserToken!
-  updateUser(updateUserInput: UpdateUserInput!): User!
-  removeUser(id: Int!): User!
+  createProduct(createProductInput: CreateProductInput!): Product!
+  updateProduct(updateProductInput: UpdateProductInput!): Product!
+  removeProduct(id: Int!): Product!
 }
 
 input CreateCourseInput {
@@ -73,17 +93,25 @@ input AuthenticateUserInput {
   password: String!
 }
 
-input UpdateUserInput {
-  """Name of the user"""
+input CreateProductInput {
+  """Product Name"""
+  name: String!
+
+  """Product's Stock"""
+  stock: Int!
+
+  """Product's Price"""
+  price: Float!
+}
+
+input UpdateProductInput {
+  """Product Name"""
   name: String
 
-  """Last-name of the user"""
-  lastName: String
+  """Product's Stock"""
+  stock: Int
 
-  """Email of the user"""
-  email: String
-
-  """Password of the user"""
-  password: String
+  """Product's Price"""
+  price: Float
   id: Int!
 }
