@@ -60,7 +60,7 @@ type Mutation {
   authenticateUser(input: AuthenticateUserInput!): UserToken!
   createProduct(createProductInput: CreateProductInput!): Product!
   updateProduct(updateProductInput: UpdateProductInput!): Product!
-  removeProduct(id: Int!): Product!
+  removeProduct(id: ID!): String!
 }
 
 input CreateCourseInput {
@@ -113,5 +113,5 @@ input UpdateProductInput {
 
   """Product's Price"""
   price: Float
-  id: Int!
+  id: ID!
 }

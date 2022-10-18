@@ -31,11 +31,23 @@ export class ProductService {
     return product;
   }
 
-  update(id: number, updateProductInput: UpdateProductInput) {
-    return `This action updates a #${id} product`;
+  async update(
+    id: string,
+    updateProductInput: UpdateProductInput,
+  ): Promise<Product> {
+    if (!isValidObjectId(id)) throw new Error('Invalid Product Id');
+    const product = await this.productModel
+      .findByIdAndUpdate(id, updateProductInput, { new: true })
+      .exec();
+
+    if (!product) throw new Error('Product not found');
+    return product;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} product`;
+  async remove(id: string): Promise<string> {
+    if (!isValidObjectId(id)) throw new Error('Invalid Product Id');
+    const product = await this.productModel.findByIdAndRemove(id).exec();
+    if (!product) throw new Error('Product not found');
+    return 'Product deleted successfully';
   }
 }

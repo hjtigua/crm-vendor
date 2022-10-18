@@ -35,8 +35,8 @@ export class ProductResolver {
     );
   }
 
-  @Mutation(() => Product)
-  removeProduct(@Args('id', { type: () => Int }) id: number) {
+  @Mutation(() => String)
+  removeProduct(@Args('id', { type: () => ID }) id: string): Promise<string> {
     return this.productService.remove(id);
   }
 }
