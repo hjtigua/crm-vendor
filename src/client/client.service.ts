@@ -68,7 +68,9 @@ export class ClientService {
     return updatedClient;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} client`;
+  async remove(id: string): Promise<string> {
+    const deletedClient = await this.clientModel.findByIdAndDelete(id);
+    if (!deletedClient) throw new Error('Client not found');
+    return 'Client deleted';
   }
 }

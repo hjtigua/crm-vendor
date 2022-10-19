@@ -58,8 +58,8 @@ export class ClientResolver {
     );
   }
 
-  @Mutation(() => Client)
-  removeClient(@Args('id', { type: () => Int }) id: number) {
+  @Mutation(() => String)
+  removeClient(@Args('id', { type: () => ID }) id: string): Promise<string> {
     return this.clientService.remove(id);
   }
 }
