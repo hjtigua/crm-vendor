@@ -44,12 +44,36 @@ type Product {
   createdAt: String!
 }
 
+type Client {
+  id: ID!
+
+  """Client name"""
+  name: String!
+
+  """Client lastName"""
+  lastName: String!
+
+  """Client Empresa"""
+  empresa: String!
+
+  """Client email"""
+  email: String!
+
+  """Client phone"""
+  phone: String
+
+  """Created date of the record"""
+  createdAt: String!
+  vendedor: User!
+}
+
 type Query {
   courses: [Course!]!
   obtenerCurso(id: Int!): Course!
   userLogin(token: String!): User!
   products: [Product!]!
   product(id: ID!): Product!
+  client(id: Int!): Client!
 }
 
 type Mutation {
@@ -61,6 +85,9 @@ type Mutation {
   createProduct(createProductInput: CreateProductInput!): Product!
   updateProduct(updateProductInput: UpdateProductInput!): Product!
   removeProduct(id: ID!): String!
+  createClient(createClientInput: CreateClientInput!): Client!
+  updateClient(updateClientInput: UpdateClientInput!): Client!
+  removeClient(id: Int!): Client!
 }
 
 input CreateCourseInput {
@@ -114,4 +141,39 @@ input UpdateProductInput {
   """Product's Price"""
   price: Float
   id: ID!
+}
+
+input CreateClientInput {
+  """Client name"""
+  name: String!
+
+  """Client lastName"""
+  lastName: String!
+
+  """Client Empresa"""
+  empresa: String!
+
+  """Client email"""
+  email: String!
+
+  """Client phone"""
+  phone: String
+}
+
+input UpdateClientInput {
+  """Client name"""
+  name: String
+
+  """Client lastName"""
+  lastName: String
+
+  """Client Empresa"""
+  empresa: String
+
+  """Client email"""
+  email: String
+
+  """Client phone"""
+  phone: String
+  id: Int!
 }
