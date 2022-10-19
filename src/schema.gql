@@ -73,6 +73,8 @@ type Query {
   userLogin(token: String!): User!
   products: [Product!]!
   product(id: ID!): Product!
+  clients: [Client!]!
+  clientsBySeller: [Client!]!
   client(id: Int!): Client!
 }
 

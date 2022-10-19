@@ -30,8 +30,19 @@ export class ClientService {
     }
   }
 
-  findAll() {
-    return `This action returns all client`;
+  async findAll(): Promise<Client[]> {
+    try {
+      const clients = await this.clientModel.find({});
+      return clients;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async getClientsBySeller(user: User): Promise<Client[]> {
+    const sellerID = new mongoose.Types.ObjectId(user.id);
+    const clients = await this.clientModel.find({ vendedor: sellerID });
+    return clients;
   }
 
   findOne(id: number) {

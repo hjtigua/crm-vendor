@@ -18,9 +18,14 @@ export class ClientResolver {
     return this.clientService.create(createClientInput, user);
   }
 
-  @Query(() => [Client], { name: 'client' })
+  @Query(() => [Client], { name: 'clients' })
   findAll() {
     return this.clientService.findAll();
+  }
+
+  @Query(() => [Client], { name: 'clientsBySeller' })
+  getClientsBySeller(@Context('user') user: User): Promise<Client[]> {
+    return this.clientService.getClientsBySeller(user);
   }
 
   @Query(() => Client, { name: 'client' })
