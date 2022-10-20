@@ -1,4 +1,12 @@
-import { Resolver, Query, Mutation, Args, Int, Context } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  Int,
+  Context,
+  ID,
+} from '@nestjs/graphql';
 import { OrderService } from './order.service';
 import { Order } from './entities/order.entity';
 import { CreateOrderInput } from './dto/create-order.input';
@@ -29,8 +37,12 @@ export class OrderResolver {
   }
 
   @Query(() => Order, { name: 'order' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.orderService.findOne(id);
+  findOne(
+    @Args('id', { type: () => ID })
+    id: string,
+    @Context('user') user: User,
+  ) {
+    return this.orderService.findOne(id, user);
   }
 
   @Mutation(() => Order)

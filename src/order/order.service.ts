@@ -63,8 +63,11 @@ export class OrderService {
       .populate('seller');
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} order`;
+  async findOne(id: string, user: User): Promise<Order> {
+    const order = await this.orderModel.findById(id);
+    if (!order) throw new Error('Order not found');
+    if (order.seller.toString() !== user.id) throw new Error('Order not found');
+    return order.populate(['client', 'seller']);
   }
 
   update(id: number, updateOrderInput: UpdateOrderInput) {
