@@ -17,7 +17,7 @@ export class OrderService {
     private readonly productService: ProductService,
   ) {}
 
-  async create(createOrderInput: CreateOrderInput, user: User) {
+  async create(createOrderInput: CreateOrderInput, user: User): Promise<Order> {
     const { client: clientID } = createOrderInput;
     const actualClient = await this.clientService.findOne(clientID, user);
 
@@ -51,8 +51,16 @@ export class OrderService {
     return finishedOrder;
   }
 
-  findAll() {
-    return `This action returns all order`;
+  async findAll(): Promise<Order[]> {
+    return await this.orderModel.find({}).populate('client').populate('seller');
+  }
+
+  async findAllOrdersBySeller(user: User): Promise<Order[]> {
+    const { id } = user;
+    return await this.orderModel
+      .find({ seller: id })
+      .populate('client')
+      .populate('seller');
   }
 
   findOne(id: number) {

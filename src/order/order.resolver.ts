@@ -18,8 +18,13 @@ export class OrderResolver {
     return this.orderService.create(createOrderInput, user);
   }
 
-  @Query(() => [Order], { name: 'order' })
+  @Query(() => [Order], { name: 'orders' })
   findAll() {
+    return this.orderService.findAll();
+  }
+
+  @Query(() => [Order], { name: 'ordersBySeller' })
+  findAllOrdersBySeller(@Context('user') user: User) {
     return this.orderService.findAll();
   }
 
