@@ -9,5 +9,6 @@ import { Product, ProductSchema } from './entities/product.entity';
     MongooseModule.forFeature([{ name: Product.name, schema: ProductSchema }]),
   ],
   providers: [ProductResolver, ProductService],
+  exports: [ProductService],
 })
 export class ProductModule {}

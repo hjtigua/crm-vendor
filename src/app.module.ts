@@ -11,6 +11,7 @@ import { UserModule } from './user/user.module';
 import { ProductModule } from './product/product.module';
 import { ClientModule } from './client/client.module';
 import { verify } from 'jsonwebtoken';
+import { OrderModule } from './order/order.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { verify } from 'jsonwebtoken';
     UserModule,
     ProductModule,
     ClientModule,
+    OrderModule,
   ],
   controllers: [AppController],
   providers: [AppService],

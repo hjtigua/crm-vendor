@@ -22,6 +22,11 @@ export class ProductService {
     return products;
   }
 
+  async findAllById(ids: string[]): Promise<Product[]> {
+    const products = await this.productModel.find({ id: { $in: ids } });
+    return products;
+  }
+
   async findOne(id: string): Promise<Product> {
     if (!isValidObjectId(id)) throw new Error('Invalid Product Id');
 
