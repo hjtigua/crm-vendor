@@ -70,7 +70,7 @@ export class OrderService {
     return order.populate(['client', 'seller']);
   }
 
-  update(id: number, updateOrderInput: UpdateOrderInput) {
+  update(id: string, updateOrderInput: UpdateOrderInput) {
     return `This action updates a #${id} order`;
   }
 
